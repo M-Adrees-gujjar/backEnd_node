@@ -29,7 +29,6 @@ const logIn_save = async function (req, res) {
 
 const forGet_password = async function (req, res) {
     let email = req.body;
-    console.log("----------Email=========", email);
     let get_std = await find_email(email.Email);
     if (get_std) {
         let number1 = Math.floor(Math.random() * 4) + 1;
@@ -72,7 +71,6 @@ const forGet_password = async function (req, res) {
         })
     }
 };
-
 
 const otp_check = async function (req, res) {
     let check = req.body;

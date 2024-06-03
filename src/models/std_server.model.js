@@ -43,7 +43,8 @@ const add_std = async (name, email, password, exam, token) => {
 
 const find_std = async (token) => {
     try {
-        const data = await std_user.find({ tch_email: token });
+        const data = await std_user.find({ tch_email: token.email });
+
         return data
     } catch (err) {
         return false;

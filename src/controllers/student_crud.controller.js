@@ -41,14 +41,9 @@ const add_student = async function (req, res) {
 };
 
 const find_student = async function (req, res) {
-    let token = req.body;
-    const secret_key = 'your-secret-key';
 
-    jwt.verify(token.token, secret_key, async (err, decoded) => {
-        if (err) {
-            console.log("Error======", err);
-        } else {
-            let get_std = await find_std(decoded.email);
+    const decoded = req.user;
+    let get_std = await find_std(decoded);
             if (get_std) {
                 res.send(get_std);
             } else {
@@ -56,8 +51,6 @@ const find_student = async function (req, res) {
                     message: "Error while Finding"
                 })
             }
-        }
-    })
 };
 
 
@@ -90,5 +83,7 @@ async function update_student(req, res) {
         })
     }
 }
+
+
 
 module.exports = { add_student, find_student, delete_student, update_student };

@@ -44,7 +44,7 @@ const logIn = async (eml, passwd) => {
             {
                 email: find_token.email
             },
-            'your-secret-key',
+            process.env.SECRET_KEY,
             {
                 expiresIn: '1h',
             }
@@ -71,5 +71,6 @@ const change_password = async (eml, pass) => {
         return true;
     }
 };
+
 
 module.exports = { sign_up, logIn, find_email, change_password };
