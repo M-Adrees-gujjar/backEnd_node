@@ -9,6 +9,7 @@ const { submitExam, displayExam } = require('../controllers/submitExam.controlle
 const getExam = require('../controllers/getExams.controller');
 const authenticateToken = require('../controllers/verify_token');
 
+
 route.post('/upload', upload.single('file'), std_lgIn);
 route.post('/tchSignUP', signUp_save);
 route.post('/login', logIn_save);

@@ -11,6 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+
+app.get('/',function (req,res) {
+    res.send("App is Working");
+})
+
+
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
