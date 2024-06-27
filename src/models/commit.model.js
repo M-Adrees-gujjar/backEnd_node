@@ -17,4 +17,9 @@ async function commit_add(id, cmmt) {
     return data1;
 }
 
-module.exports = { commit_add, commit_post };
+async function allCommits(id) {
+    let data1 = await commit_post.find({ 'commit_id': id });
+    return data1;
+}
+
+module.exports = { commit_add, commit_post , allCommits};

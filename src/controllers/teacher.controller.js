@@ -1,11 +1,11 @@
-const { sign_up, logIn, find_email , change_password} = require('../models/sever.model');
+const { sign_up, logIn, find_email, change_password } = require('../models/sever.model');
 const nodemailer = require('nodemailer');
 
 let number = null;
 
 const signUp_save = async function (req, res) {
     let post_result = req.body;
-    let sign_up_return = await sign_up(post_result.Name, post_result.Phone, post_result.Email, post_result.Password, post_result.Confirm_Password);
+    let sign_up_return = await sign_up(post_result.Name, post_result.Email, post_result.Password);
     if (sign_up_return) {
         res.send({
             token: sign_up_return
@@ -93,7 +93,7 @@ const change_pass = async function (req, res) {
             message: true
         });
     } else {
-        res.send({ message : false });
+        res.send({ message: false });
     }
 };
 

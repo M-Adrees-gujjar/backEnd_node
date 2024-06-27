@@ -27,10 +27,18 @@ const student_post = async (token, caption, img_url) => {
                         like_count: 0,
                         like_email: []
                     });
-                    await data.save();
-                    return true;
+                    let resData = await data.save();
+                    return {
+                        response : resData,
+                        message : "Data Save Successfully",
+                        success : true
+                    };
                 } catch (err) {
-                    return false;
+                    return {
+                        response : [],
+                        message : "Error While Save",
+                        success : true
+                    };
                 }
             }
         });
@@ -64,7 +72,7 @@ async function like_DB(token, like_id) {
                             $set: { "like_count": like_data_count },
                             $pull: { "like_email": decoded.email }
                         });
-                        const data1 = await std_post.findOne({ "_id": like_id });
+                        const data1 = await std_post.find();
                         return data1;
                     } else {
                         const like_data_count = ++like_data.like_count;
@@ -72,7 +80,7 @@ async function like_DB(token, like_id) {
                             $set: { "like_count": like_data_count },
                             $push: { "like_email": decoded.email }
                         });
-                        const data1 = await std_post.findOne({ "_id": like_id });
+                        const data1 = await std_post.find();
                         return data1;
                     }
                 } catch (err) {

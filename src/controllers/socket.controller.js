@@ -1,12 +1,14 @@
 const { student_post, student_display, like_DB, std_post, friend_DB } = require('../models/student_post.model');
-const { commit_add, commit_post } = require('../models/commit.model');
+const { commit_add, commit_post , allCommits} = require('../models/commit.model');
 
 function handle_like(socket, io) {
     socket.on('like', async ({ token, value }) => {
         let like_res = await like_DB(token, value);
         io.emit('like', {
-            like_count: like_res.like_count,
-            like_id: like_res._id
+            success : true,
+            response : like_res
+            // like_count: like_res.like_count,
+            // like_id: like_res._id
         });
     });
 }
@@ -15,6 +17,13 @@ function handle_commit(socket, io) {
     socket.on('commit', async ({ element, commit }) => {
         let data = await commit_add(element, commit);
         io.emit('commit_response', data);
+    });
+}
+
+function allCommit(socket, io) {
+    socket.on('allCommit', async ({ element }) => {
+        let data = await allCommits(element);
+        io.emit('allCommit_response', data);
     });
 }
 
@@ -29,4 +38,4 @@ function handle_friend(socket, io) {
     });
 }
 
-module.exports = { handle_like, handle_commit, handle_friend };
+module.exports = { handle_like, handle_commit, handle_friend , allCommit};

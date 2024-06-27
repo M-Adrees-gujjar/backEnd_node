@@ -3,34 +3,26 @@ const jwt = require('jsonwebtoken');
 
 const signUpSchema = new mongoose.Schema({
     name: String,
-    phone: String,
     email: String,
     password: String,
-    confirm_password: String,
     img_path: String
 })
 
 const user = new mongoose.model("user", signUpSchema);
 
-const sign_up = async (name, phone, email, password, confirm_password) => {
-    if (password == confirm_password) {
-        let val = await user.findOne({ email: email });
-        if (val) {
-            return false;
-
-        } else {
-            const data = await user({
-                name: name,
-                phone: phone,
-                email: email,
-                password: password,
-                confirm_password: confirm_password
-            });
-            await data.save();
-            return true;
-        }
-    } else {
+const sign_up = async (name, email, password) => {
+    let val = await user.findOne({ email: email });
+    if (val) {
         return false;
+
+    } else {
+        const data = await user({
+            name: name,
+            email: email,
+            password: password
+        });
+        await data.save();
+        return true;
     }
 };
 
@@ -44,10 +36,7 @@ const logIn = async (eml, passwd) => {
             {
                 email: find_token.email
             },
-            process.env.SECRET_KEY,
-            {
-                expiresIn: '1h',
-            }
+            process.env.SECRET_KEY
         );
 
         return token;

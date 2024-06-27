@@ -29,15 +29,10 @@ async function post_image(req, res) {
     });
 
     let response = await student_post(result.std_token, result.caption, image1);
-
     if (response) {
-        res.send({
-            message: "Ok"
-        });
+        res.send(response);
     } else {
-        res.send({
-            message: false
-        });
+        res.send(response);
     }
 }
 
