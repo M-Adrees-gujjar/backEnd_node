@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const add_exam = async function (req, res) {
   let std = req.body;
+  await mongoose.connect(process.env.MONGODB_URL);
   let get_std = await add_exams(std.exam, std.time, std.students, std.token);
   if (get_std) {
     res.send({
